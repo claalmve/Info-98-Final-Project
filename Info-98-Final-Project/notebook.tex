@@ -1,0 +1,1901 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{info-98-final-project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Info 98 Final Project}\label{info-98-final-project}
+
+\subsubsection{By Calvin Chen, Jusheen Kim, Jamila
+Hussein}\label{by-calvin-chen-jusheen-kim-jamila-hussein}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{datascience} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{simplefilter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+ne}{FutureWarning}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{patches}
+        \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{interact}\PY{p}{,} \PY{n}{interactive}\PY{p}{,} \PY{n}{fixed}
+        \PY{k+kn}{import} \PY{n+nn}{ipywidgets} \PY{k}{as} \PY{n+nn}{widgets}
+        \PY{n}{sqrt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{import} \PY{n}{scatter\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{model\PYZus{}selection}\PY{p}{,} \PY{n}{datasets}\PY{p}{,} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{r2\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+\end{Verbatim}
+
+
+    \section{Dataset 1}\label{dataset-1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Data extraction and cleaning}
+        \PY{n}{cleaning}\PY{p}{,} \PY{n}{cleaned} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{haberman.data.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{Table}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year Op}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Pos Aux Nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{cleaning} \PY{o}{=} \PY{n}{cleaning}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaning}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaning}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cleaned} \PY{o}{=} \PY{n}{cleaned}\PY{o}{.}\PY{n}{with\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{j}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{cleaning}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{random\PYZus{}cleaned} \PY{o}{=} \PY{n}{cleaned}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{with\PYZus{}replacement}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+        \PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n}{random\PYZus{}cleaned}\PY{o}{.}\PY{n}{take}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{random\PYZus{}cleaned}\PY{o}{.}\PY{n}{num\PYZus{}rows} \PY{o}{*} \PY{l+m+mf}{0.8}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{train\PYZus{}status}\PY{p}{,} \PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{random\PYZus{}cleaned}\PY{o}{.}\PY{n}{take}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{random\PYZus{}cleaned}\PY{o}{.}\PY{n}{num\PYZus{}rows} \PY{o}{*} \PY{l+m+mf}{0.8}\PY{p}{)}\PY{p}{,} \PY{n}{random\PYZus{}cleaned}\PY{o}{.}\PY{n}{num\PYZus{}rows}\PY{p}{)}\PY{p}{)}
+        \PY{n}{test\PYZus{}status}\PY{p}{,} \PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survival Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} RMSE (Used for kNN to determine nearest neighbors and used for LinReg to determine accuracy of the regression)}
+        \PY{k}{def} \PY{n+nf}{RMSE}\PY{p}{(}\PY{n}{array1}\PY{p}{,} \PY{n}{array2}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{sqrt}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{array1} \PY{o}{\PYZhy{}} \PY{n}{array2}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Creating the kNN Model}
+        \PY{k}{def} \PY{n+nf}{distances}\PY{p}{(}\PY{n}{test\PYZus{}row}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{)}\PY{p}{:}
+            \PY{n}{distances} \PY{o}{=} \PY{n}{make\PYZus{}array}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{rows}\PY{p}{:}
+                \PY{n}{distances} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{distances}\PY{p}{,} \PY{n}{RMSE}\PY{p}{(}\PY{n}{make\PYZus{}array}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}row}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{distances}
+        
+        \PY{k}{def} \PY{n+nf}{classify}\PY{p}{(}\PY{n}{test\PYZus{}row}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+            \PY{n}{classes\PYZus{}and\PYZus{}distances} \PY{o}{=} \PY{n}{Table}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{with\PYZus{}columns}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train\PYZus{}status}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{distances}\PY{p}{(}\PY{n}{test\PYZus{}row}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{classes\PYZus{}and\PYZus{}distances}\PY{o}{.}\PY{n}{take}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{descending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{accuracy}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+            \PY{n}{classes} \PY{o}{=} \PY{n}{make\PYZus{}array}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{rows}\PY{p}{:}
+                \PY{n}{classes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{classes}\PY{p}{,} \PY{n}{classify}\PY{p}{(}\PY{n}{make\PYZus{}array}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{)}
+            \PY{n}{comparison} \PY{o}{=} \PY{n}{Table}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{with\PYZus{}columns}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual Status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{test\PYZus{}status}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{comparison}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{==} \PY{n}{comparison}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{comparison}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Testing}
+        \PY{n}{best\PYZus{}k} \PY{o}{=} \PY{n}{Table}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Only using k\PYZhy{}values from 1 to 20}
+            \PY{n}{best\PYZus{}k} \PY{o}{=} \PY{n}{best\PYZus{}k}\PY{o}{.}\PY{n}{with\PYZus{}row}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{accuracy}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{,} \PY{n}{train\PYZus{}set}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{best\PYZus{}k}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{are}\PY{o}{.}\PY{n}{equal\PYZus{}to}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{best\PYZus{}k}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} k    | Accuracy
+        15   | 87.0968
+        16   | 87.0968
+        17   | 87.0968
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Creating the linear regression}
+        \PY{k}{def} \PY{n+nf}{standard\PYZus{}units}\PY{p}{(}\PY{n}{xyz}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{(}\PY{n}{xyz} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{xyz}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{xyz}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{correlation}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{label\PYZus{}x}\PY{p}{,} \PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{standard\PYZus{}units}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}x}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{standard\PYZus{}units}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{slope}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{label\PYZus{}x}\PY{p}{,} \PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{:}
+            \PY{n}{r} \PY{o}{=} \PY{n}{correlation}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{label\PYZus{}x}\PY{p}{,} \PY{n}{label\PYZus{}y}\PY{p}{)}
+            \PY{k}{return} \PY{n}{r}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}x}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{intercept}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{label\PYZus{}x}\PY{p}{,} \PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}y}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{slope}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{label\PYZus{}x}\PY{p}{,} \PY{n}{label\PYZus{}y}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{t}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{n}{label\PYZus{}x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Linear regression on Training Set w/ Residuals}
+        \PY{n}{intercept}\PY{p}{,} \PY{n}{slope} \PY{o}{=} \PY{n}{intercept}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Pos Aux Nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{slope}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Pos Aux Nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{lin\PYZus{}train} \PY{o}{=} \PY{n}{train\PYZus{}set}
+        \PY{n}{guesses} \PY{o}{=} \PY{n}{lin\PYZus{}train}\PY{o}{.}\PY{n}{with\PYZus{}column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Guesses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{slope} \PY{o}{*} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Pos Aux Nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{n}{intercept}\PY{p}{)}
+        \PY{n}{residuals} \PY{o}{=} \PY{n}{guesses}\PY{o}{.}\PY{n}{with\PYZus{}column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{guesses}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Guesses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{guesses}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{residuals}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{residuals}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training set accuracy: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training set accuracy: 4.098360655737705
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Testing}
+        \PY{n}{test\PYZus{}ages}\PY{p}{,} \PY{n}{test\PYZus{}nodes} \PY{o}{=} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Num of Pos Aux Nodes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{test\PYZus{}ages} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{slope} \PY{o}{*} \PY{n}{test\PYZus{}nodes} \PY{o}{+} \PY{n}{intercept}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}nodes}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training set accuracy: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training set accuracy: 1.6129032258064515
+
+    \end{Verbatim}
+
+    \subsubsection{Explanation}\label{explanation}
+
+    The dataset I chose was the Haberman dataset, where the data consisted
+of three variables, age, year of operation, and the number of positive
+auxiliary nodes, and an outcome which was whether or not that patient
+survived after breast cancer surgery. So, for this dataset, I decided to
+use K-Nearest Neighbors and Linear Regression. I processed my data in
+the beginning by opening the text file, and then parsing through the
+data by splitting lines with .split("\n") and then parsed through every
+line and appended them to a table with .split(" "). Once I was done with
+that, I converted each cell to an integer rather than a string, and then
+I was finally done with cleaning my data and could begin testing models
+off of it.
+
+The first thing I did after that was split my data into a test\_set and
+a train\_set (20\% of the data and 80\% of the data respectively). From
+there, I built my kNN model by comparing each row in the test\_set with
+the closest k neighbors in the train\_set, and then determined the
+classification of each row in the test\_set by the most common class of
+the k nearest neighbors selected. I didn't end up selecting certain
+features, as there were only 3 to begin with, so I just built the model
+around the features provided. I also went further to determine the
+accuracy of the model, and determine the k-values that corresponded to
+the highest accuracy k-value(s).
+
+Results: pretty accurate (around 80\% accuracy for every model).
+
+The next thing I did was built the linear regression model. I didn't end
+up using linear regression to determine whether or not someone had
+survived a surgery for breast cancer, but rather determine the
+relationship between the Age and the Number of Positive Auxiliary Nodes
+each person had. I figured that if there was a correlation between those
+two variables, and a correlation between the Number of Positive
+Auxiliary Nodes each person had and whether or not someone survived the
+surgery (it seemed the most logical), then I could deduce that there is
+a correlation between Age and Survival Status. So, I build my linear
+regression pertaining to Age and Number of Positive Auxiliary Nodes, and
+found the best fit line for the two variables. After that, I trained my
+train\_set on that data, and determined how accurate my model was with
+the training data. Once I determined that accuracy, I went on to
+determine how accurate my model was on the test data, which was the
+premise of making the linear regression model.
+
+Results: pretty terribly inaccurate (on average less than 3\% accuracy
+for each linear regression model).
+
+    \section{Dataset 2}\label{dataset-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/iris/iris.data}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZhy{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal\PYZhy{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZhy{}length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal\PYZhy{}width}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{names}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(150, 5)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       sepal-length  sepal-width  petal-length  petal-width
+count    150.000000   150.000000    150.000000   150.000000
+mean       5.843333     3.054000      3.758667     1.198667
+std        0.828066     0.433594      1.764420     0.763161
+min        4.300000     2.000000      1.000000     0.100000
+25\%        5.100000     2.800000      1.600000     0.300000
+50\%        5.800000     3.000000      4.350000     1.300000
+75\%        6.400000     3.300000      5.100000     1.800000
+max        7.900000     4.400000      6.900000     2.500000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{dataset}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+class
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{array} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{values}
+         \PY{n}{X} \PY{o}{=} \PY{n}{array}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{array}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{validation\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.20}
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{7}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}validation}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}validation} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{n}{validation\PYZus{}size}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Test options and evaluation metric}
+         \PY{n}{seed} \PY{o}{=} \PY{l+m+mi}{7}
+         \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{models}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KNN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} evaluate each model in turn}
+         \PY{n}{results} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{model} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+         	\PY{n}{kfold} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+         	\PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{kfold}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{n}{scoring}\PY{p}{)}
+         	\PY{n}{results}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cv\PYZus{}results}\PY{p}{)}
+         	\PY{n}{names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+         	\PY{n}{msg} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{cv\PYZus{}results}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{cv\PYZus{}results}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         	\PY{n+nb}{print}\PY{p}{(}\PY{n}{msg}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LR: 0.966667 (0.040825)
+KNN: 0.983333 (0.033333)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Comparing the Algorithms}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Algorithm Comparison}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{names}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Using KNN Algorithm to make Predications on the Validation Data Set}
+         \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{knn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}validation}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9
+[[ 7  0  0]
+ [ 0 11  1]
+ [ 0  2  9]]
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00         7
+Iris-versicolor       0.85      0.92      0.88        12
+ Iris-virginica       0.90      0.82      0.86        11
+
+    avg / total       0.90      0.90      0.90        30
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Using Logistic Regression Algorithm for Prediction test on Validation Set data}
+         \PY{n}{logr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{logr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}validation}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{Y\PYZus{}validation}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.8
+[[ 7  0  0]
+ [ 0  7  5]
+ [ 0  1 10]]
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00         7
+Iris-versicolor       0.88      0.58      0.70        12
+ Iris-virginica       0.67      0.91      0.77        11
+
+    avg / total       0.83      0.80      0.80        30
+
+
+    \end{Verbatim}
+
+    \paragraph{Explanation}\label{explanation}
+
+First I thought about what the models are supposed to tell me If given a
+future data set, these models will be able predict what kind of flower
+each plant is up to a certain \% accuracy.
+
+Second I loaded some Python libraries for certain useful functions I
+also imported libraries, and some of their functions
+
+After, I loaded the data set I chose: Iris
+
+I then visualized the data so I could get a feel for what I was working
+with I also got some general statistical info about the data set in
+addtion to the scatterplot matrix
+
+I split the data into two groups: a set to train the models and a set to
+test my model on after This allowed me to check if my model was decently
+accurate, since it is important to test the models on data it has never
+seen before.
+
+Now I trained the models using the first data set
+
+Just to see which one was more reliable/accurate, I created a box and
+whisker plot. We can see that while logistic regression is decently
+accurate, the KNN model was very accurate
+
+Then I tested the models on the second set of data that I saved earlier
+Results: Logistic regression model was around 80\% accurate and the KNN
+model was around 90\% accurate.
+
+    \section{Dataset 3}\label{dataset-3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Import dataset forestfires.csv. }
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{forestfires.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Shows the first 5 data points in the dataset}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} As we can see, we have a problem with \PYZdq{}month\PYZdq{} and \PYZdq{}day\PYZdq{} being categorical variables however, we need to clean this up and transform them into numerical variables. }
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}    X  Y month  day  FFMC   DMC     DC  ISI  temp  RH  wind  rain  area
+         0  7  5   mar  fri  86.2  26.2   94.3  5.1   8.2  51   6.7   0.0   0.0
+         1  7  4   oct  tue  90.6  35.4  669.1  6.7  18.0  33   0.9   0.0   0.0
+         2  7  4   oct  sat  90.6  43.7  686.9  6.7  14.6  33   1.3   0.0   0.0
+         3  8  6   mar  fri  91.7  33.3   77.5  9.0   8.3  97   4.0   0.2   0.0
+         4  8  6   mar  sun  89.3  51.3  102.2  9.6  11.4  99   1.8   0.0   0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Create a set of dummy variables from the month and day variable}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Check columns of the data}
+         \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} Index(['X', 'Y', 'FFMC', 'DMC', 'DC', 'ISI', 'temp', 'RH', 'wind', 'rain',
+                'area', 'month\_apr', 'month\_aug', 'month\_dec', 'month\_feb', 'month\_jan',
+                'month\_jul', 'month\_jun', 'month\_mar', 'month\_may', 'month\_nov',
+                'month\_oct', 'month\_sep', 'day\_fri', 'day\_mon', 'day\_sat', 'day\_sun',
+                'day\_thu', 'day\_tue', 'day\_wed'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}Drop one column of month and day, in order to avoid multicollinearity}
+         \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month\PYZus{}nov}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day\PYZus{}sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}Check the range of values of each column}
+         \PY{n}{df}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} X               8.00
+         Y               7.00
+         FFMC           77.50
+         DMC           290.20
+         DC            852.70
+         ISI            56.10
+         temp           31.10
+         RH             85.00
+         wind            9.00
+         rain            6.40
+         area         1090.84
+         month\_apr       1.00
+         month\_aug       1.00
+         month\_dec       1.00
+         month\_feb       1.00
+         month\_jan       1.00
+         month\_jul       1.00
+         month\_jun       1.00
+         month\_mar       1.00
+         month\_may       1.00
+         month\_oct       1.00
+         month\_sep       1.00
+         day\_fri         1.00
+         day\_mon         1.00
+         day\_sun         1.00
+         day\_thu         1.00
+         day\_tue         1.00
+         day\_wed         1.00
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}:: Linear Regression ::}
+         \PY{c+c1}{\PYZsh{}Import LinearRegression package}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{c+c1}{\PYZsh{}Copy df into data and establish the target as \PYZsq{}area\PYZsq{}}
+         \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{target} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}LR = data and target}
+         \PY{n}{lr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}Import MSE package }
+         \PY{c+c1}{\PYZsh{}Look at R\PYZca{}2 and Root Mean Squared Error (RMSE)}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{target}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+         \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mse}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{rmse}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} R\PYZca{}2 = 0.04578 is very small; RMSE = 62.12 is large}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.04578209650808518
+62.12143311792724
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}Import package}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+         \PY{c+c1}{\PYZsh{}Set up statistics; define the data attributes}
+         \PY{n}{df\PYZus{}attributes} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{number\PYZus{}of\PYZus{}columns} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}attributes}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Create models to test each column}
+         \PY{n}{statistics} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}columns} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{model} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{area \PYZti{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+                             \PY{n}{df\PYZus{}attributes}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model: area \PYZti{} }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{df\PYZus{}attributes}\PY{p}{[}\PY{n}{idx}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}Print the model which allows us to see the relationship between X=all columns except for area and y=area. The relationship in terms of r\PYZhy{}squared, p\PYZhy{}value, log\PYZhy{}likelihood.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n}{statistics}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{f\PYZus{}pvalue}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{rsquared}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.004
+Model:                            OLS   Adj. R-squared:                  0.002
+Method:                 Least Squares   F-statistic:                     2.077
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.150
+Time:                        23:29:24   Log-Likelihood:                -2879.4
+No. Observations:                 517   AIC:                             5763.
+Df Residuals:                     515   BIC:                             5771.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      4.7049      6.304      0.746      0.456      -7.679      17.089
+X              1.7438      1.210      1.441      0.150      -0.633       4.121
+==============================================================================
+Omnibus:                      981.662   Durbin-Watson:                   1.653
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           802838.467
+Skew:                          12.752   Prob(JB):                         0.00
+Kurtosis:                     194.360   Cond. No.                         12.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.002
+Model:                            OLS   Adj. R-squared:                  0.000
+Method:                 Least Squares   F-statistic:                     1.039
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.309
+Time:                        23:29:24   Log-Likelihood:                -2879.9
+No. Observations:                 517   AIC:                             5764.
+Df Residuals:                     515   BIC:                             5772.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.8610     10.189      0.281      0.779     -17.156      22.878
+Y              2.3225      2.278      1.019      0.309      -2.154       6.799
+==============================================================================
+Omnibus:                      981.970   Durbin-Watson:                   1.645
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           802937.403
+Skew:                          12.761   Prob(JB):                         0.00
+Kurtosis:                     194.369   Cond. No.                         17.0
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.002
+Model:                            OLS   Adj. R-squared:                 -0.000
+Method:                 Least Squares   F-statistic:                    0.8304
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.363
+Time:                        23:29:24   Log-Likelihood:                -2880.0
+No. Observations:                 517   AIC:                             5764.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept    -29.0914     46.109     -0.631      0.528    -119.675      61.493
+FFMC           0.4627      0.508      0.911      0.363      -0.535       1.460
+==============================================================================
+Omnibus:                      983.137   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           808340.065
+Skew:                          12.793   Prob(JB):                         0.00
+Kurtosis:                     195.015   Cond. No.                     1.50e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.5e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.005
+Model:                            OLS   Adj. R-squared:                  0.003
+Method:                 Least Squares   F-statistic:                     2.759
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):             0.0973
+Time:                        23:29:24   Log-Likelihood:                -2879.1
+No. Observations:                 517   AIC:                             5762.
+Df Residuals:                     515   BIC:                             5771.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      4.8036      5.591      0.859      0.391      -6.181      15.788
+DMC            0.0725      0.044      1.661      0.097      -0.013       0.158
+==============================================================================
+Omnibus:                      982.803   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           811231.935
+Skew:                          12.780   Prob(JB):                         0.00
+Kurtosis:                     195.368   Cond. No.                         256.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.002
+Model:                            OLS   Adj. R-squared:                  0.001
+Method:                 Least Squares   F-statistic:                     1.259
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.262
+Time:                        23:29:25   Log-Likelihood:                -2879.8
+No. Observations:                 517   AIC:                             5764.
+Df Residuals:                     515   BIC:                             5772.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      5.9037      6.792      0.869      0.385      -7.439      19.247
+DC             0.0127      0.011      1.122      0.262      -0.010       0.035
+==============================================================================
+Omnibus:                      982.892   Durbin-Watson:                   1.645
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           807312.305
+Skew:                          12.786   Prob(JB):                         0.00
+Kurtosis:                     194.893   Cond. No.                     1.46e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.46e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.03512
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.851
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     11.8072      6.217      1.899      0.058      -0.407      24.022
+ISI            0.1153      0.615      0.187      0.851      -1.093       1.324
+==============================================================================
+Omnibus:                      983.625   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           809992.277
+Skew:                          12.806   Prob(JB):                         0.00
+Kurtosis:                     195.211   Cond. No.                         22.6
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.010
+Model:                            OLS   Adj. R-squared:                  0.008
+Method:                 Least Squares   F-statistic:                     4.978
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):             0.0261
+Time:                        23:29:25   Log-Likelihood:                -2878.0
+No. Observations:                 517   AIC:                             5760.
+Df Residuals:                     515   BIC:                             5768.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -7.4138      9.500     -0.780      0.435     -26.077      11.249
+temp           1.0726      0.481      2.231      0.026       0.128       2.017
+==============================================================================
+Omnibus:                      979.270   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           793772.021
+Skew:                          12.687   Prob(JB):                         0.00
+Kurtosis:                     193.275   Cond. No.                         67.5
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.006
+Model:                            OLS   Adj. R-squared:                  0.004
+Method:                 Least Squares   F-statistic:                     2.954
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):             0.0863
+Time:                        23:29:25   Log-Likelihood:                -2879.0
+No. Observations:                 517   AIC:                             5762.
+Df Residuals:                     515   BIC:                             5770.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     25.8948      8.089      3.201      0.001      10.002      41.787
+RH            -0.2946      0.171     -1.719      0.086      -0.631       0.042
+==============================================================================
+Omnibus:                      980.422   Durbin-Watson:                   1.642
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           795947.965
+Skew:                          12.720   Prob(JB):                         0.00
+Kurtosis:                     193.531   Cond. No.                         137.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.07815
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.780
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     11.0891      6.885      1.611      0.108      -2.438      24.616
+wind           0.4376      1.565      0.280      0.780      -2.638       3.513
+==============================================================================
+Omnibus:                      983.721   Durbin-Watson:                   1.647
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810324.708
+Skew:                          12.809   Prob(JB):                         0.00
+Kurtosis:                     195.251   Cond. No.                         11.3
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.02794
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.867
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.8816      2.810      4.585      0.000       7.362      18.402
+rain          -1.5842      9.477     -0.167      0.867     -20.203      17.035
+==============================================================================
+Omnibus:                      983.726   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810320.385
+Skew:                          12.809   Prob(JB):                         0.00
+Kurtosis:                     195.250   Cond. No.                         3.38
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       1.000
+Model:                            OLS   Adj. R-squared:                  1.000
+Method:                 Least Squares   F-statistic:                 6.731e+35
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):               0.00
+Time:                        23:29:25   Log-Likelihood:                 16831.
+No. Observations:                 517   AIC:                        -3.366e+04
+Df Residuals:                     515   BIC:                        -3.365e+04
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept   1.776e-15   7.91e-17     22.463      0.000    1.62e-15    1.93e-15
+area           1.0000   1.22e-18    8.2e+17      0.000       1.000       1.000
+==============================================================================
+Omnibus:                      129.195   Durbin-Watson:                   0.178
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              511.065
+Skew:                           1.079   Prob(JB):                    1.06e-111
+Kurtosis:                       7.366   Cond. No.                         66.2
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.03531
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.851
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.9174      2.827      4.569      0.000       7.364      18.471
+month\_apr     -4.0263     21.426     -0.188      0.851     -46.119      38.066
+==============================================================================
+Omnibus:                      983.684   Durbin-Watson:                   1.645
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810127.385
+Skew:                          12.808   Prob(JB):                         0.00
+Kurtosis:                     195.227   Cond. No.                         7.65
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                  0.009029
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.924
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.0452      3.492      3.736      0.000       6.186      19.905
+month\_aug     -0.5561      5.853     -0.095      0.924     -12.055      10.942
+==============================================================================
+Omnibus:                      983.716   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810005.500
+Skew:                          12.809   Prob(JB):                         0.00
+Kurtosis:                     195.212   Cond. No.                         2.42
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                 0.0005257
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.982
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.8387      2.827      4.541      0.000       7.285      18.393
+month\_dec      0.4913     21.427      0.023      0.982     -41.603      42.585
+==============================================================================
+Omnibus:                      983.761   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810436.487
+Skew:                          12.810   Prob(JB):                         0.00
+Kurtosis:                     195.264   Cond. No.                         7.65
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                    0.2214
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.638
+Time:                        23:29:25   Log-Likelihood:                -2880.3
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.1118      2.858      4.589      0.000       7.498      18.726
+month\_feb     -6.8368     14.528     -0.471      0.638     -35.379      21.705
+==============================================================================
+Omnibus:                      983.614   Durbin-Watson:                   1.651
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           809994.231
+Skew:                          12.806   Prob(JB):                         0.00
+Kurtosis:                     195.212   Cond. No.                         5.19
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.08164
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.775
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.8972      2.808      4.594      0.000       7.382      18.413
+month\_jan    -12.8972     45.139     -0.286      0.775    -101.576      75.782
+==============================================================================
+Omnibus:                      983.774   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810556.489
+Skew:                          12.810   Prob(JB):                         0.00
+Kurtosis:                     195.278   Cond. No.                         16.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.01947
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.889
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.7468      2.893      4.406      0.000       7.063      18.431
+month\_jul      1.6228     11.629      0.140      0.889     -21.224      24.469
+==============================================================================
+Omnibus:                      983.846   Durbin-Watson:                   1.651
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           811053.241
+Skew:                          12.812   Prob(JB):                         0.00
+Kurtosis:                     195.338   Cond. No.                         4.17
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                    0.2126
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.645
+Time:                        23:29:25   Log-Likelihood:                -2880.3
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.0855      2.849      4.593      0.000       7.489      18.682
+month\_jun     -7.2443     15.711     -0.461      0.645     -38.110      23.621
+==============================================================================
+Omnibus:                      983.657   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810121.056
+Skew:                          12.807   Prob(JB):                         0.00
+Kurtosis:                     195.227   Cond. No.                         5.61
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.002
+Model:                            OLS   Adj. R-squared:                  0.000
+Method:                 Least Squares   F-statistic:                     1.073
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.301
+Time:                        23:29:25   Log-Likelihood:                -2879.9
+No. Observations:                 517   AIC:                             5764.
+Df Residuals:                     515   BIC:                             5772.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.8376      2.958      4.678      0.000       8.026      19.649
+month\_mar     -9.4809      9.153     -1.036      0.301     -27.463       8.501
+==============================================================================
+Omnibus:                      983.567   Durbin-Watson:                   1.653
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810485.401
+Skew:                          12.804   Prob(JB):                         0.00
+Kurtosis:                     195.271   Cond. No.                         3.31
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                   0.02021
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.887
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.8225      2.808      4.567      0.000       7.307      18.338
+month\_may      6.4175     45.142      0.142      0.887     -82.267      95.102
+==============================================================================
+Omnibus:                      983.813   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810671.684
+Skew:                          12.811   Prob(JB):                         0.00
+Kurtosis:                     195.292   Cond. No.                         16.1
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                    0.1467
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.702
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.0328      2.843      4.583      0.000       7.447      18.619
+month\_oct     -6.3948     16.693     -0.383      0.702     -39.190      26.401
+==============================================================================
+Omnibus:                      983.643   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810053.570
+Skew:                          12.807   Prob(JB):                         0.00
+Kurtosis:                     195.219   Cond. No.                         5.96
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.003
+Model:                            OLS   Adj. R-squared:                  0.001
+Method:                 Least Squares   F-statistic:                     1.654
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.199
+Time:                        23:29:25   Log-Likelihood:                -2879.6
+No. Observations:                 517   AIC:                             5763.
+Df Residuals:                     515   BIC:                             5772.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     10.3070      3.425      3.009      0.003       3.578      17.036
+month\_sep      7.6356      5.938      1.286      0.199      -4.030      19.301
+==============================================================================
+Omnibus:                      981.964   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           799672.828
+Skew:                          12.764   Prob(JB):                         0.00
+Kurtosis:                     193.972   Cond. No.                         2.41
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.003
+Model:                            OLS   Adj. R-squared:                  0.001
+Method:                 Least Squares   F-statistic:                     1.446
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.230
+Time:                        23:29:25   Log-Likelihood:                -2879.7
+No. Observations:                 517   AIC:                             5763.
+Df Residuals:                     515   BIC:                             5772.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     14.3398      3.061      4.684      0.000       8.326      20.354
+day\_fri       -9.0782      7.550     -1.202      0.230     -23.911       5.754
+==============================================================================
+Omnibus:                      983.245   Durbin-Watson:                   1.658
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           809450.017
+Skew:                          12.795   Prob(JB):                         0.00
+Kurtosis:                     195.149   Cond. No.                         2.78
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.001
+Method:                 Least Squares   F-statistic:                    0.2317
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.630
+Time:                        23:29:25   Log-Likelihood:                -2880.3
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.3985      3.027      4.427      0.000       7.452      19.345
+day\_mon       -3.8508      8.000     -0.481      0.630     -19.567      11.866
+==============================================================================
+Omnibus:                      983.363   Durbin-Watson:                   1.651
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           808420.980
+Skew:                          12.799   Prob(JB):                         0.00
+Kurtosis:                     195.023   Cond. No.                         2.92
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                    0.2157
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.642
+Time:                        23:29:25   Log-Likelihood:                -2880.3
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     13.4647      3.101      4.342      0.000       7.372      19.557
+day\_sun       -3.3602      7.234     -0.464      0.642     -17.573      10.852
+==============================================================================
+Omnibus:                      983.143   Durbin-Watson:                   1.644
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           807675.865
+Skew:                          12.793   Prob(JB):                         0.00
+Kurtosis:                     194.935   Cond. No.                         2.68
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                    0.2086
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.648
+Time:                        23:29:25   Log-Likelihood:                -2880.3
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.3793      2.983      4.150      0.000       6.518      18.240
+day\_thu        3.9666      8.685      0.457      0.648     -13.096      21.029
+==============================================================================
+Omnibus:                      983.078   Durbin-Watson:                   1.648
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           808675.667
+Skew:                          12.791   Prob(JB):                         0.00
+Kurtosis:                     195.056   Cond. No.                         3.15
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.002
+Method:                 Least Squares   F-statistic:                 0.0009154
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):              0.976
+Time:                        23:29:25   Log-Likelihood:                -2880.4
+No. Observations:                 517   AIC:                             5765.
+Df Residuals:                     515   BIC:                             5773.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     12.8792      2.994      4.302      0.000       6.998      18.761
+day\_tue       -0.2574      8.509     -0.030      0.976     -16.974      16.459
+==============================================================================
+Omnibus:                      983.706   Durbin-Watson:                   1.649
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           810175.976
+Skew:                          12.809   Prob(JB):                         0.00
+Kurtosis:                     195.233   Cond. No.                         3.09
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Summarize the model \PYZhy{} the p\PYZhy{}value and R\PYZhy{}squared}
+         \PY{n}{statistics} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{statistics}\PY{p}{,} 
+                                       \PY{n}{index}\PY{o}{=}\PY{n}{df\PYZus{}attributes}\PY{p}{[}\PY{p}{:} \PY{n}{number\PYZus{}of\PYZus{}columns} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                       \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZhy{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZhy{}squared}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{statistics}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}                   X         Y      FFMC       DMC        DC       ISI  \textbackslash{}
+         p-value    0.150096  0.308510  0.362592  0.097335  0.262363  0.851418   
+         R-squared  0.004018  0.002014  0.001610  0.005328  0.002439  0.000068   
+         
+                        temp        RH      wind      rain    {\ldots}     month\_jun  \textbackslash{}
+         p-value    0.026101  0.086271  0.779939  0.867310    {\ldots}      0.644924   
+         R-squared  0.009573  0.005703  0.000152  0.000054    {\ldots}      0.000413   
+         
+                    month\_mar  month\_may  month\_oct  month\_sep   day\_fri   day\_mon  \textbackslash{}
+         p-value     0.300773   0.887006   0.701822   0.199054  0.229755  0.630475   
+         R-squared   0.002079   0.000039   0.000285   0.003200  0.002800  0.000450   
+         
+                     day\_sun   day\_thu   day\_tue  
+         p-value    0.642497  0.648064  0.975874  
+         R-squared  0.000419  0.000405  0.000002  
+         
+         [2 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}Find statistically significant column}
+         \PY{n}{statistics}\PY{p}{[}\PY{n}{statistics}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZhy{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.05}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}temp is the only statistically significant column (p\PYZhy{}value = 0.026) accounting for (1\PYZpc{} of forest fires)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}        p-value  R-squared
+         temp  0.026101   0.009573
+         area  0.000000   1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}Linear regression relationship between area and temp}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{area \PYZti{} temp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                   area   R-squared:                       0.010
+Model:                            OLS   Adj. R-squared:                  0.008
+Method:                 Least Squares   F-statistic:                     4.978
+Date:                Sat, 28 Apr 2018   Prob (F-statistic):             0.0261
+Time:                        23:29:25   Log-Likelihood:                -2878.0
+No. Observations:                 517   AIC:                             5760.
+Df Residuals:                     515   BIC:                             5768.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -7.4138      9.500     -0.780      0.435     -26.077      11.249
+temp           1.0726      0.481      2.231      0.026       0.128       2.017
+==============================================================================
+Omnibus:                      979.270   Durbin-Watson:                   1.650
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           793772.021
+Skew:                          12.687   Prob(JB):                         0.00
+Kurtosis:                     193.275   Cond. No.                         67.5
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} :: Train/Test Split ::}
+         \PY{c+c1}{\PYZsh{}Import LogisiticRegression and Train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{c+c1}{\PYZsh{}Create training and testing variabels}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Print variables}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(258, 27)
+(259, 27)
+(258,)
+(259,)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}Model with the training data to predict test data }
+         \PY{n}{lm} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{predictions}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} array([10.93205541,  9.95865732, 15.37412386, 30.87723729,  5.66272802])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} :: Cross Validation ::}
+         \PY{c+c1}{\PYZsh{}Import KFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold} 
+         \PY{c+c1}{\PYZsh{}Create array(2)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Define split}
+         \PY{n}{kf} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{kf}\PY{o}{.}\PY{n}{get\PYZus{}n\PYZus{}splits}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{kf}\PY{p}{)}
+         \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+KFold(n\_splits=2, random\_state=None, shuffle=False)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} KFold(n\_splits=2, random\_state=None, shuffle=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}This function will split the data(df)}
+         \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Train:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}index}\PY{p}{)}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+             \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train: [2 3] Test: [0 1]
+Train: [0 1] Test: [2 3]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} array([0.  , 0.36, 0.43, 0.47, 0.55])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}Import DecisionTreeRegressor and StandardScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeRegressor}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}Criterior for the decision tree regressor is Mean Absolute Error(MAE)}
+         \PY{n}{dt} \PY{o}{=} \PY{n}{DecisionTreeRegressor}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Build a decision tree regressor from the training and testing set}
+         \PY{n}{dt}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{x}\PY{o}{=}\PY{n}{dt}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.5811388300841898
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} :: Logisitic Regression ::}
+         \PY{c+c1}{\PYZsh{}Check if dataset size is sufficient (50 records per feature=good)}
+         \PY{n}{forestfires\PYZus{}dmy} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{forestfires\PYZus{}dmy}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{n}{forestfires\PYZus{}dmy}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 517 entries, 0 to 516
+Data columns (total 28 columns):
+X            517 non-null int64
+Y            517 non-null int64
+FFMC         517 non-null float64
+DMC          517 non-null float64
+DC           517 non-null float64
+ISI          517 non-null float64
+temp         517 non-null float64
+RH           517 non-null int64
+wind         517 non-null float64
+rain         517 non-null float64
+area         517 non-null float64
+month\_apr    517 non-null uint8
+month\_aug    517 non-null uint8
+month\_dec    517 non-null uint8
+month\_feb    517 non-null uint8
+month\_jan    517 non-null uint8
+month\_jul    517 non-null uint8
+month\_jun    517 non-null uint8
+month\_mar    517 non-null uint8
+month\_may    517 non-null uint8
+month\_oct    517 non-null uint8
+month\_sep    517 non-null uint8
+day\_fri      517 non-null uint8
+day\_mon      517 non-null uint8
+day\_sun      517 non-null uint8
+day\_thu      517 non-null uint8
+day\_tue      517 non-null uint8
+day\_wed      517 non-null uint8
+dtypes: float64(8), int64(3), uint8(17)
+memory usage: 53.1 KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{ix}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: DeprecationWarning: 
+.ix is deprecated. Please use
+.loc for label based indexing or
+.iloc for positional indexing
+
+See the documentation here:
+http://pandas.pydata.org/pandas-docs/stable/indexing.html\#ix-indexer-is-deprecated
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}Create the model}
+         \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                   penalty='l2', random\_state=None, solver='liblinear', tol=0.0001,
+                   verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix} 
+         \PY{n}{confusion\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+         \PY{n}{confusion\PYZus{}matrix} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} array([[ 6,  4,  0,  4,  0,  0,  4,  2,  0],
+                [ 9,  6,  0, 16,  0,  0,  3,  3,  1],
+                [ 1,  3,  0, 23,  0,  0,  4,  4,  1],
+                [ 8,  4,  0, 19,  0,  0,  2,  2,  0],
+                [ 0,  3,  0, 11,  0,  0,  1,  2,  0]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+             precision    recall  f1-score   support
+
+          1       0.19      0.30      0.24        20
+          2       0.29      0.16      0.20        38
+          3       0.00      0.00      0.00        36
+          4       0.14      0.54      0.22        35
+          5       0.00      0.00      0.00        17
+          6       1.00      0.02      0.04        46
+          7       0.17      0.10      0.12        30
+          8       0.48      0.80      0.60        30
+          9       0.00      0.00      0.00         7
+
+avg / total       0.33      0.23      0.17       259
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn\_for)
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
